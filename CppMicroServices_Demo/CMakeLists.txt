@@ -3,12 +3,17 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-message("${CMAKE_CURRENT_SOURCE_DIR}/../../../../Third_Part/CppMicroServices/build/x64-Debug/include/cppmicroservices4")
 
-# CppMicroServices头文件路径
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../Third_Part/CppMicroServices/build/x64-Debug/include/cppmicroservices4)
+if(CMAKE_BUILD_TYPE=DEBUG)
+    # CppMicroServices头文件路径
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../Third_Part/CppMicroServices/build/x64-Debug/include/cppmicroservices4)
+    set(CppMicroServices_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../Third_Part/CppMicroServices/build/x64-Debug/share/cppmicroservices4/cmake")
+else()
+    message("CMAKE_BUILD_TYPE:${CMAKE_BUILD_TYPE}")
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../Third_Part/CppMicroServices/build/x64-Release/include/cppmicroservices4)
+    set(CppMicroServices_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../Third_Part/CppMicroServices/build/x64-Release/share/cppmicroservices4/cmake")
 
-set(CppMicroServices_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../Third_Part/CppMicroServices/build/x64-Debug/share/cppmicroservices4/cmake")
+endif()
 
 find_package(CppMicroServices REQUIRED)
 
