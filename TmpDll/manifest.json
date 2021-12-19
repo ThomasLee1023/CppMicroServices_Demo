@@ -1,0 +1,6 @@
+{
+  "bundle.symbolic_name" : "TmpDll",
+  "bundle.activator" : true,
+  "bundle.name" : "TmpDll",
+  "bundle.description" : "test cppmicroservices"
+}

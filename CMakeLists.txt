@@ -7,3 +7,5 @@ project ("CppMicroServices_Demo")
 
 # 包含子项目。
 add_subdirectory ("CppMicroServices_Demo")
+
+add_subdirectory ("TmpDll")

@@ -12,6 +12,10 @@ using namespace std;
 
 using namespace cppmicroservices;
 
+#include "../TmpDll/ITmpDll.h"
+
+#include <memory>
+
 
 class SomeInterface
 {
@@ -55,6 +59,36 @@ int main()
 
 	auto context = fw.GetBundleContext();
 	auto service = make_shared<SomeInterface>();
+
+	
+	std::vector<Bundle> bundles;
+	try {
+		// location为相对于可执行程序的地址
+		string location = "../TmpDll/TmpDll.dll";
+		bundles = context.InstallBundles(location);
+	}
+	catch (const std::exception& e) {
+		std::cout << e.what() << std::endl;
+		return 1;
+	}
+
+
+
+	//std::vector<Bundle> bundles = context.GetBundles();
+	for (auto& x : bundles)
+	{
+		auto symName = x.GetSymbolicName();
+		if (symName == "TmpDll")
+		{
+			x.Start();
+			ServiceReference<ITmpDll> ref = context.GetServiceReference<ITmpDll>();
+			shared_ptr<ITmpDll> pTmpDll = context.GetService<ITmpDll>(ref);
+
+			std::cout << pTmpDll->showPluginName() << std::endl;
+			x.Stop();
+		}
+	}
+
 
 	RegisterSomeService(context, service);
 
