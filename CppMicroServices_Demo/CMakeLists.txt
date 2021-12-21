@@ -5,7 +5,7 @@ cmake_minimum_required (VERSION 3.8)
 
 set(CPPMICROSERVICES_BUILD ../../../../Third_Part/CppMicroServices/build)
 
-if(CMAKE_BUILD_TYPE=DEBUG)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     # CppMicroServices头文件路径
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/${CPPMICROSERVICES_BUILD}/x64-Debug/include/cppmicroservices4)
     set(CppMicroServices_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${CPPMICROSERVICES_BUILD}/x64-Debug/share/cppmicroservices4/cmake")

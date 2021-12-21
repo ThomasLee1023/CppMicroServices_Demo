@@ -57,6 +57,8 @@ int main()
 		return 1;
 	}
 
+	fw.Start();
+
 	auto context = fw.GetBundleContext();
 	auto service = make_shared<SomeInterface>();
 
@@ -71,8 +73,6 @@ int main()
 		std::cout << e.what() << std::endl;
 		return 1;
 	}
-
-
 
 	//std::vector<Bundle> bundles = context.GetBundles();
 	for (auto& x : bundles)
@@ -94,6 +94,7 @@ int main()
 
 	UseService(context);
 
+	fw.Stop();
 
 	cout << "Hello CMake." << endl;
 	return 0;

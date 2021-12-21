@@ -11,7 +11,7 @@ set(SRC TmpDll.cpp
 
 set(CPPMICROSERVICES_BUILD ../../../../Third_Part/CppMicroServices/build)
 
-if(CMAKE_BUILD_TYPE=DEBUG)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     # CppMicroServices头文件路径
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/${CPPMICROSERVICES_BUILD}/x64-Debug/include/cppmicroservices4)
     set(CppMicroServices_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${CPPMICROSERVICES_BUILD}/x64-Debug/share/cppmicroservices4/cmake")
@@ -36,12 +36,12 @@ find_package(CppMicroServices REQUIRED)
 target_link_libraries(TmpDll CppMicroServices)
 
 
-set(USRESOURCE_COMPILE4_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${CPPMICROSERVICES_BUILD}/x64-Debug/bin")
-
-if(CMAKE_BUILD_TYPE=DEBUG)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(TMPDLL_DLL_PATH ../out/build/x64-Debug/TmpDll/TmpDll.dll)
+    set(USRESOURCE_COMPILE4_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${CPPMICROSERVICES_BUILD}/x64-Debug/bin")
 else()
     set(TMPDLL_DLL_PATH ../out/build/x64-Release/TmpDll/TmpDll.dll)
+    set(USRESOURCE_COMPILE4_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${CPPMICROSERVICES_BUILD}/x64-Release/bin")
 endif()
 
 #生成插件
@@ -49,4 +49,3 @@ add_custom_command(TARGET TmpDll
                    POST_BUILD
                    COMMAND ${USRESOURCE_COMPILE4_PATH}/usResourceCompiler4 -n ${_bundle_name}
                    -b "${CMAKE_CURRENT_SOURCE_DIR}/${TMPDLL_DLL_PATH}" -m "${CMAKE_CURRENT_SOURCE_DIR}/manifest.json")
-
